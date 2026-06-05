@@ -38,12 +38,17 @@ directory.
 
 Place pretrained weights under `pretrained/`:
 
-```text
+<!-- ```text
 pretrained/
   vicuna-7b/
   InternVL2_5-4B/
   sam2_hiera_large.pt
-```
+``` -->
+
+- [vicuna-7b](https://github.com/lm-sys/FastChat/blob/main/docs/vicuna_weights_version.md)
+- [InternVL2_5-4B](https://huggingface.co/OpenGVLab/InternVL2_5-4B)
+- [sam2_hiera_large.pt](https://huggingface.co/facebook/sam2-hiera-large)
+
 
 The default launcher uses `./pretrained/vicuna-7b`. InternVL2_5-4B can be
 selected without code changes.
@@ -67,7 +72,9 @@ data/
 ```
 
 Scene graph object boxes and box features should be pre-extracted into the
-dataset-specific `custom_data/*/annotation/` directories. Relations between
+dataset-specific `custom_data/*/annotation/` directories. 
+You can download them from the following [link](xxx).
+Relations between
 object nodes are represented implicitly by the temporal graph network layers.
 
 ## Training
@@ -105,7 +112,7 @@ Run evaluation on the configured LVVIS/OVIS validation sets with the default
 Vicuna-7B language model:
 
 ```bash
-CHECKPOINT=work_dirs/sg_fscformer/latest.pth bash run_eval.sh
+CHECKPOINT=work_dirs/sg_fscformer/xxx.pth bash run_eval.sh
 ```
 
 
@@ -115,7 +122,7 @@ Multi-GPU evaluation:
 CUDA_VISIBLE_DEVICES=0,1 \
 MODEL_PATH=./pretrained/vicuna-7b \
 bash tools/dist.sh test projects/llava_sam2/configs/sg_fscformer.py 2 \
-  --checkpoint work_dirs/sg_fscformer/latest.pth \
+  --checkpoint work_dirs/sg_fscformer/xxx.pth \
   --work-dir work_dirs/sg_fscformer_eval
 ```
 
@@ -130,7 +137,7 @@ MODEL_PATH=./pretrained/sg_fscformer bash run_demo.sh
 ## Model Export
 
 ```bash
-PTH_MODEL=work_dirs/sg_fscformer/latest.pth \
+PTH_MODEL=work_dirs/sg_fscformer/xxx.pth \
 SAVE_PATH=pretrained/finetune_models/sg_fscformer \
 bash run_convert_cpk.sh
 ```
