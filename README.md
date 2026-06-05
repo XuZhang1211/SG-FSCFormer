@@ -73,7 +73,7 @@ data/
 
 Scene graph object boxes and box features should be pre-extracted into the
 dataset-specific `custom_data/*/annotation/` directories. 
-You can download them from the following [link](xxx).
+You can download them from the following [link](https://drive.google.com/drive/folders/1xT03q0jq9e3D-p6yDEUY8i_S3chE6un9?usp=sharing).
 Relations between
 object nodes are represented implicitly by the temporal graph network layers.
 
