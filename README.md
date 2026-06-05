@@ -24,9 +24,118 @@ Recent advancements in multimodal large models have significantly bridged the re
 ![SG-FSCFormer](assets/network.jpg)
 
 
-### Update
-2025.9 Init repository.
+## Environment
+Training and evaluation environment: Python 3.10, PyTorch 2.3.1, CUDA 11.8. Run the following command to install required packages.
+```
+pip install -r requirements.txt
+```
+
+Optional caption metrics use the COCO caption toolkit. If it is not already
+available in the environment, install it from the bundled `coco-caption`
+directory.
+
+## Pretrained Models
+
+Place pretrained weights under `pretrained/`:
+
+```text
+pretrained/
+  vicuna-7b/
+  InternVL2_5-4B/
+  sam2_hiera_large.pt
+```
+
+The default launcher uses `./pretrained/vicuna-7b`. InternVL2_5-4B can be
+selected without code changes.
+
+## Data Preparation
+
+The default config expects LVVIS/OVIS-style SegCaption annotations and extracted
+scene graph features:
+
+```text
+data/
+  lvvis/
+    annotation/
+    frames/
+  ovis/
+    annotation/
+    frames/
+  custom_data/
+    lvvis/annotation/
+    ovis/annotation/
+```
+
+Scene graph object boxes and box features should be pre-extracted into the
+dataset-specific `custom_data/*/annotation/` directories. Relations between
+object nodes are represented implicitly by the temporal graph network layers.
+
+## Training
+
+Single-node multi-GPU training:
+
+```bash
+bash run_train.sh
+```
+
+Useful overrides:
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1 GPUS=2 bash run_train.sh
+MODEL_PATH=./pretrained/InternVL2_5-4B bash run_train.sh
+```
 
 
-### TODO List
-- [ ] Code release. 
+Equivalent direct command:
+
+```bash
+bash tools/dist.sh train projects/llava_sam2/configs/sg_fscformer.py 2
+```
+
+## Validation and Evaluation
+
+The config validates once per epoch. Reported metrics include:
+
+- Captioning: METEOR, CIDEr, and SPICE when COCOEvalCap is available.
+- Video segmentation: J, F, and J&F.
+- Cross-modal alignment: class-level AP and instance-level mAP.
+
+
+Run evaluation on the configured LVVIS/OVIS validation sets with the default
+Vicuna-7B language model:
+
+```bash
+CHECKPOINT=work_dirs/sg_fscformer/latest.pth bash run_eval.sh
+```
+
+
+Multi-GPU evaluation:
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1 \
+MODEL_PATH=./pretrained/vicuna-7b \
+bash tools/dist.sh test projects/llava_sam2/configs/sg_fscformer.py 2 \
+  --checkpoint work_dirs/sg_fscformer/latest.pth \
+  --work-dir work_dirs/sg_fscformer_eval
+```
+
+## Demo
+
+After converting or preparing an SG-FSCFormer HuggingFace checkpoint:
+
+```bash
+MODEL_PATH=./pretrained/sg_fscformer bash run_demo.sh
+```
+
+## Model Export
+
+```bash
+PTH_MODEL=work_dirs/sg_fscformer/latest.pth \
+SAVE_PATH=pretrained/finetune_models/sg_fscformer \
+bash run_convert_cpk.sh
+```
+
+## Notes
+
+- This codebase builds on SAM2, Vicuna/InternVL, and related
+  open-source components.
