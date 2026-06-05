@@ -6,10 +6,6 @@ from mmengine.registry import LOOPS
 @LOOPS.register_module()
 class SegCaptionValLoop(ValLoop):
     """Validation loop for SegCaption metrics.
-
-    The default MMEngine ValLoop treats dict outputs as validation losses and
-    indexes the last item after loss parsing. SegCaption validation returns
-    metric samples directly, so this loop forwards them to the evaluator.
     """
 
     def run_iter(self, idx, data_batch):

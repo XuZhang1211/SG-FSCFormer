@@ -32,11 +32,6 @@ def _box_to_tensor(boxes, device, dtype):
 
 class PromptGuidedTemporalGraphFormer(nn.Module):
     """Prompt-guided Temporal Graph Former.
-
-    This module builds a prompt-centric temporal scene graph from a video tensor and
-    a visual prompt box. The pruning and aggregation stages follow the PTGFormer
-    formulation: hard prompt-centric filtering, soft relation weighting, temporal
-    cross-attention, and edge-to-node graph aggregation.
     """
 
     def __init__(

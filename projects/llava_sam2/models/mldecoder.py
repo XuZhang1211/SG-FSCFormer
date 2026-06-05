@@ -7,12 +7,6 @@ import torch.nn.functional as F
 
 class GraphGuidedIterativeQueryFormer(nn.Module):
     """Graph-guided Iterative Query Former.
-
-    The module follows the MLDecoder description: graph features query visual
-    features to obtain ``f_vg``, language queries attend to a compact context
-    memory to obtain ``f_cq``, and ``f_vg`` attends ``f_cq`` to obtain the
-    visual-language text embedding ``f_vl``. The three cross-attention blocks
-    are applied iteratively and the memory is refreshed from ``f_vl``.
     """
 
     def __init__(
