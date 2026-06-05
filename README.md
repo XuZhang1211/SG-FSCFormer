@@ -38,13 +38,6 @@ directory.
 
 Place pretrained weights under `pretrained/`:
 
-<!-- ```text
-pretrained/
-  vicuna-7b/
-  InternVL2_5-4B/
-  sam2_hiera_large.pt
-``` -->
-
 - [vicuna-7b](https://huggingface.co/lmsys/vicuna-7b-v1.5)
 - [InternVL2_5-4B](https://huggingface.co/OpenGVLab/InternVL2_5-4B)
 - [sam2_hiera_large.pt](https://huggingface.co/facebook/sam2-hiera-large)
@@ -140,7 +133,7 @@ SAVE_PATH=pretrained/finetune_models/sg_fscformer \
 bash run_convert_cpk.sh
 ```
 
-## Notes
+<!-- ## Notes
 
 - This codebase builds on SAM2, Vicuna/InternVL, and related
-  open-source components.
+  open-source components. -->
