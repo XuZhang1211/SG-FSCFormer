@@ -45,7 +45,7 @@ pretrained/
   sam2_hiera_large.pt
 ``` -->
 
-- [vicuna-7b](https://github.com/lm-sys/FastChat/blob/main/docs/vicuna_weights_version.md)
+- [vicuna-7b](https://huggingface.co/lmsys/vicuna-7b-v1.5)
 - [InternVL2_5-4B](https://huggingface.co/OpenGVLab/InternVL2_5-4B)
 - [sam2_hiera_large.pt](https://huggingface.co/facebook/sam2-hiera-large)
 
